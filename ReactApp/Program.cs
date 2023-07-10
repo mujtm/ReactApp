@@ -1,7 +1,34 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.Extensions.Configuration;
+using Npgsql;
+using System.Data;
 
+
+var policyName = "_myAllowSpecificOrigins";
+
+var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: policyName,
+                      builder =>
+                      {
+                          builder
+                            .WithOrigins("http://localhost:3000")
+                            .AllowAnyOrigin()
+                            .WithMethods("GET")
+                            .AllowAnyHeader();
+                      });
+});
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Add dependency injection
+builder.Configuration.AddJsonFile("appsettings.json", optional: true);
+//builder.Services.AddSingleton<IDbConnection>((sp) => new NpgsqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSingleton<IDbConnection>((sp) => new NpgsqlConnection(builder.Configuration.GetConnectionString("PostgreSQL")));
+
+builder.Services.AddScoped<EmployeeRepository>();
 
 var app = builder.Build();
 
@@ -14,6 +41,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(policyName);
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -22,5 +51,9 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.Run();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
+app.Run();
