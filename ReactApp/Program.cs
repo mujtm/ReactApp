@@ -25,7 +25,7 @@ builder.Services.AddRazorPages();
 
 // Add dependency injection
 builder.Configuration.AddJsonFile("appsettings.json", optional: true);
-//builder.Services.AddSingleton<IDbConnection>((sp) => new NpgsqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddSingleton<IDbConnection>((sp) => new NpgsqlConnection(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 builder.Services.AddScoped<EmployeeRepository>();
