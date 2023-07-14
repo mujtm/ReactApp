@@ -31,9 +31,9 @@ export const EmployeeTabs = () => {
 
     return (
         <div>
-            <h1 className="text-success">List of Employees</h1>
+            <h1 className="text-secondary mt-3 d-flex justify-content-center">List of Employees</h1>
 
-            <Paper square>
+            <Paper square className="d-flex justify-content-center">
                 <Tabs
                     value={value}
                     textColor="primary"

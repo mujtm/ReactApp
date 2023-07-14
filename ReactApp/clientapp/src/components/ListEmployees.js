@@ -6,7 +6,7 @@ export const ListEmployees = (props) => {
 
     return (
         <div>
-            <Table striped bordered hover size="sm" >
+            <Table className="d-flex justify-content-center" striped bordered hover size="sm" >
                 <tbody>
                     <tr>
                         <th>Id</th>
