@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/employee")]
+
 public class EmployeeController : ControllerBase
 {
     private readonly EmployeeRepository _employeeRepository;
@@ -11,47 +12,31 @@ public class EmployeeController : ControllerBase
         _employeeRepository = employeeRepository;
     }
 
+
     [HttpGet]
     public IActionResult GetEmployees()
     {
         var employees = _employeeRepository.GetEmployees();
         return Ok(employees);
     }
-}
 
-[Route("api/employee/[controller]")]
-public class MaleController : ControllerBase
-{
-    private readonly MaleEmployeeRepository _maleEmployeeRepository;
 
-    public MaleController(MaleEmployeeRepository maleEmployeeRepository)
-    {
-        _maleEmployeeRepository = maleEmployeeRepository;
-    }
-
+    [Route("male")]
     [HttpGet]
-    public IActionResult GetEmployees()
+    public IActionResult GetMaleEmployees()
     {
-        var employees = _maleEmployeeRepository.GetEmployees();
+        var employees = _employeeRepository.GetMaleEmployees();
         return Ok(employees);
     }
-}
 
-[Route("api/employee/[controller]")]
-public class FemaleController : ControllerBase
-{
-    private readonly FemaleEmployeeRepository _femaleEmployeeRepository;
 
-    public FemaleController(FemaleEmployeeRepository femaleEmployeeRepository)
-    {
-        _femaleEmployeeRepository = femaleEmployeeRepository;
-    }
-
+    [Route("female")]
     [HttpGet]
-    public IActionResult GetEmployees()
+    public IActionResult GetFemaleEmployees()
     {
-        var employees = _femaleEmployeeRepository.GetEmployees();
+        var employees = _employeeRepository.GetFemaleEmployees();
         return Ok(employees);
     }
-}
 
+
+}

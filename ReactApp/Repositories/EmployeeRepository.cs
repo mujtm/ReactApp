@@ -16,4 +16,16 @@ public class EmployeeRepository
     {
         return _dbConnection.Query<Employee>("SELECT * FROM employees");
     }
+
+
+    public IEnumerable<Employee> GetMaleEmployees()
+    {
+        return _dbConnection.Query<Employee>("SELECT * FROM employees where gender = 'Male'");
+    }
+
+
+    public IEnumerable<Employee> GetFemaleEmployees()
+    {
+        return _dbConnection.Query<Employee>("SELECT * FROM employees where gender = 'Female'");
+    }
 }

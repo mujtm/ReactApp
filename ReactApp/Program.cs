@@ -29,8 +29,6 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true);
 builder.Services.AddSingleton<IDbConnection>((sp) => new NpgsqlConnection(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 builder.Services.AddScoped<EmployeeRepository>();
-builder.Services.AddScoped<MaleEmployeeRepository>();
-builder.Services.AddScoped<FemaleEmployeeRepository>();
 
 var app = builder.Build();
 
